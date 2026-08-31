@@ -7,13 +7,22 @@
 <meta name="description" content="日本語の文をその場で英語にして声に出す、瞬間英作文アプリ。全635問、1日5分から。iPhone・Android対応。">
 <!-- 実体はストア側にあるので、この振り分けページが検索に出る必要はない -->
 <meta name="robots" content="noindex">
-<link rel="icon" href="icon.png">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<meta name="theme-color" content="#2b6ef5">
 <meta property="og:type" content="website">
+<!-- og:site_name が無いと、SNSのカードにドメイン文字列がそのまま出る -->
+<meta property="og:site_name" content="シュン">
 <meta property="og:title" content="瞬間英作文アプリ シュン">
 <meta property="og:description" content="日本語をその場で英語にして声に出す練習。全635問、1日5分から。">
-<meta property="og:url" content="https://yuga04222001-web.github.io/shun/">
-<meta property="og:image" content="https://yuga04222001-web.github.io/shun/og-image.png">
+<meta property="og:url" content="https://shun.nelax.net/">
+<meta property="og:image" content="https://shun.nelax.net/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="瞬間英作文アプリ シュン">
+<meta name="twitter:description" content="日本語をその場で英語にして声に出す練習。全635問、1日5分から。">
+<meta name="twitter:image" content="https://shun.nelax.net/og-image.jpg">
 </head>
 <body>
 
@@ -25,7 +34,7 @@
     <p class="lede">日本語の文が流れたら、その場で英語にして声に出す。くり返すのは、それだけです。</p>
 
     <div class="stores" id="stores">
-      <a class="store" id="ios" href="https://apps.apple.com/app/id6791818293">
+      <a class="store" id="ios" href="https://apps.apple.com/jp/app/id6791818293">
         <span class="name">App Store</span>
         <span class="device">iPhone・iPad</span>
       </a>
@@ -41,6 +50,11 @@
     </div>
 
     <p class="note" id="note">お使いの端末のストアを選んでください。</p>
+
+    <p class="foot">
+      NELAX ・
+      <a href="https://accidental-canopy-538.notion.site/SHUN-Privacy-Policy-3a0972fc684b80cca836ccd51435f885" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>
+    </p>
   </div>
 </main>
 
@@ -146,6 +160,11 @@
   }
   .chip b { font-size:15px; font-weight:900; }
   .note { margin:14px 0 0; font-size:11.5px; line-height:1.7; color:var(--muted); text-align:center; }
+
+  /* 運営者名とポリシー。ここが唯一のストア以外のリンクなので、
+     押した先で個人アカウント名が出ないものを選んでいる。 */
+  .foot { margin:14px 0 0; font-size:11px; color:var(--muted); text-align:center; }
+  .foot a { color:inherit; text-decoration:underline; text-underline-offset:2px; }
   /* 横向きやアプリ内ブラウザの上下バーで縦が短いとき。
      844×302 では主ボタン（342–398px）が丸ごと画面外に出ていた。 */
   @media (max-height: 620px) {
