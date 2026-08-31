@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>瞬間英作文アプリ シュン</title>
+<meta name="description" content="日本語の文をその場で英語にして声に出す、瞬間英作文アプリ。全635問、1日5分から。iPhone・Android対応。">
+<!-- 実体はストア側にあるので、この振り分けページが検索に出る必要はない -->
+<meta name="robots" content="noindex">
+<link rel="icon" href="icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="瞬間英作文アプリ シュン">
+<meta property="og:description" content="日本語をその場で英語にして声に出す練習。全635問、1日5分から。">
+<meta property="og:url" content="https://yuga04222001-web.github.io/shun/">
+<meta property="og:image" content="https://yuga04222001-web.github.io/shun/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+
+<main class="wrap">
+  <div class="card">
+    <img class="icon" src="icon.png" width="88" height="88" alt="シュンのアプリアイコン">
+
+    <h1>英語が口から、<br><span class="accent">瞬時に出る。</span></h1>
+    <p class="lede">日本語の文が流れたら、その場で英語にして声に出す。くり返すのは、それだけです。</p>
+
+    <div class="stores" id="stores">
+      <a class="store" id="ios" href="https://apps.apple.com/app/id6791818293">
+        <span class="name">App Store</span>
+        <span class="device">iPhone・iPad</span>
+      </a>
+      <a class="store" id="android" href="https://play.google.com/store/apps/details?id=com.shun.english">
+        <span class="name">Google Play</span>
+        <span class="device">Android</span>
+      </a>
+    </div>
+
+    <div class="chips">
+      <span class="chip">全<b>635</b>問</span>
+      <span class="chip">1日<b>5</b>分から</span>
+    </div>
+
+    <p class="note" id="note">お使いの端末のストアを選んでください。</p>
+  </div>
+</main>
+
+<style>
+  /* 役割: アプリの配布リンク1枚。読み物ではなく通過点。
+     方針: 要素を足すほどストアへ着く人は減るので、最小限に振り切る。
+     書体: 端末標準のみ。回線の細い環境で開かれるため外部フォントは読まない。
+     色: ブランドの青は「押す場所」だけに使い、青が1箇所に見える状態を保つ。 */
+  :root {
+    --ground:#eef2f8; --card:#fff; --ink:#0d1526;
+    /* #7b8798 は対白 3.65:1 で WCAG AA(4.5:1) 未満。屋外で注釈が読めないため落とす */
+    --muted:#5f6b7d; --line:#e3e9f2; --brand:#2b6ef5; --onbrand:#fff;
+    --tile:rgba(16,32,64,.10);
+    --glow:0 8px 20px -8px rgba(43,110,245,.45);
+    --lift:0 1px 2px rgba(16,32,64,.04), 0 14px 36px -20px rgba(16,32,64,.24);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground:#0a1120; --card:#141c28; --ink:#e9eef6;
+      --muted:#98a4b6; --line:#232d3c; --brand:#5f94ff; --onbrand:#071021;
+      --tile:rgba(255,255,255,.14);
+      --glow:0 8px 22px -8px rgba(95,148,255,.4);
+      --lift:0 1px 2px rgba(0,0,0,.4), 0 16px 40px -22px rgba(0,0,0,.75);
+    }
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    background:var(--ground); color:var(--ink);
+    font-family:-apple-system, BlinkMacSystemFont, "Hiragino Sans",
+                "Noto Sans JP", "Yu Gothic Medium", Meiryo, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* svh / env() 非対応の環境では宣言ごと破棄されるので素の値を先に置く */
+  .wrap {
+    min-height:100vh; min-height:100svh;
+    display:grid; place-items:center;
+    padding:24px 16px;
+    padding:24px calc(16px + env(safe-area-inset-right))
+            calc(24px + env(safe-area-inset-bottom))
+            calc(16px + env(safe-area-inset-left));
+  }
+  .card {
+    width:100%; max-width:400px;
+    background:var(--card); border:1px solid var(--line);
+    border-radius:20px; box-shadow:var(--lift);
+    padding:32px 22px 24px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  /* 元絵は白地にキャラクターが立っている。白いカードへ直接置くと背景が溶けて
+     「切り抜き忘れ」に見えるので、白のタイルとして枠と影を与える。 */
+  .icon {
+    width:88px; height:88px; display:block; background:#fff;
+    border-radius:20px; border:1px solid var(--tile);
+    box-shadow:0 2px 8px rgba(16,32,64,.10);
+  }
+  h1 {
+    margin:16px 0 0; font-size:clamp(24px, 7.2vw, 30px); font-weight:900;
+    line-height:1.28; letter-spacing:-.01em; text-align:center;
+  }
+  h1 .accent { color:var(--brand); }
+  /* 「瞬間英作文」を知らない人へ、何をする時間なのかを一行で渡す。
+     見出しは結果しか言っていないため、これが無いと像が結ばない。 */
+  .lede {
+    margin:12px 0 0; font-size:13.5px; line-height:1.75;
+    color:var(--muted); text-align:center;
+  }
+  .stores { margin-top:22px; width:100%; display:flex; flex-direction:column; gap:10px; }
+  a.store {
+    min-height:56px; border-radius:14px; border:1px solid var(--line);
+    color:inherit; text-decoration:none;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1px;
+    padding:8px 14px; transition:transform .12s ease, box-shadow .12s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  a.store .name { font-weight:800; font-size:16px; }
+  a.store .device { font-size:11.5px; color:var(--muted); letter-spacing:.04em; }
+  a.store.primary {
+    background:var(--brand); border-color:transparent; color:var(--onbrand);
+    box-shadow:var(--glow); order:-1;
+  }
+  a.store.primary .device { color:var(--onbrand); opacity:.85; }
+  a.store:hover { transform:translateY(-1px); }
+  a.store:active { transform:translateY(1px); }
+  a.store:focus-visible { outline:2px solid var(--brand); outline-offset:3px; }
+  @media (prefers-reduced-motion: reduce) {
+    a.store { transition:none; }
+    a.store:hover, a.store:active { transform:none; }
+  }
+  /* 端末が分かったら、もう一方は1行に落とす。56px のボタンが2つ並ぶと
+     2択に見えて迷いを生み、短い画面ではその66pxが主ボタンを押し出す。 */
+  .stores.resolved a.store:not(.primary) {
+    min-height:0; padding:6px; border-color:transparent;
+  }
+  .stores.resolved a.store:not(.primary) .name {
+    font-size:13px; font-weight:700; color:var(--muted);
+  }
+  .stores.resolved a.store:not(.primary) .device { display:none; }
+  .chips { margin-top:18px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center; }
+  .chip {
+    border:1.5px solid var(--brand); color:var(--brand); border-radius:999px;
+    padding:5px 13px; font-size:13px; font-weight:700; white-space:nowrap;
+  }
+  .chip b { font-size:15px; font-weight:900; }
+  .note { margin:14px 0 0; font-size:11.5px; line-height:1.7; color:var(--muted); text-align:center; }
+  /* 横向きやアプリ内ブラウザの上下バーで縦が短いとき。
+     844×302 では主ボタン（342–398px）が丸ごと画面外に出ていた。 */
+  @media (max-height: 620px) {
+    .card { padding:20px 22px 20px; }
+    .icon { width:60px; height:60px; border-radius:14px; }
+    .lede { display:none; }
+    .stores { margin-top:16px; }
+    .chips { margin-top:14px; }
+  }
+</style>
+
+<script>
+(function () {
+  function detect(ua, platform, maxTouchPoints) {
+    // Kindle Fire は Android を名乗るが Play ストアが無い。開けない店へ送らない。
+    if (/Silk|KFTT|KFOT|KFJWI|KFTHW|KFAUWI|KFSUWI/i.test(ua)) return "other";
+    // クローラに振り分けを実行させない（ストアへの転送ページとして扱われる）
+    if (/bot|crawl|spider|facebookexternalhit|Slurp/i.test(ua)) return "other";
+    if (/iPhone|iPad|iPod/.test(ua)) return "ios";
+    if (/Android/.test(ua)) return "android";
+    // iPadOS 13 以降は UA が Mac と同じになるため、タッチ点数で補う。
+    // navigator.platform は非推奨で空文字へ書き換える拡張もあるので UA 側でも見る
+    // （片方だけに依存させると iPad 判定が丸ごと死ぬ）。
+    if ((maxTouchPoints || 0) > 1 &&
+        (/Mac/.test(platform || "") || /Mac OS X/.test(ua))) return "ios";
+    return "other";
+  }
+  window.__detect = detect;
+
+  var target = detect(navigator.userAgent || "", navigator.platform || "",
+                      navigator.maxTouchPoints || 0);
+  if (target === "other") return;
+
+  // 自動遷移はしない。以前は location.replace で飛ばしていたが、
+  //  ・判定できた人（≈対象の大半）はこのページを一度も見ない
+  //  ・遷移が塞がれても例外は飛ばず、try/catch は発火しない
+  //  ・違う端末向けのリンクを人に渡したくても、自分が見られない
+  // 代わりに、押す場所を1つだけ主役にして先頭へ繰り上げる。
+  var el = document.getElementById(target);
+  el.classList.add("primary");
+  document.getElementById("stores").classList.add("resolved");
+  document.getElementById("note").textContent =
+    target === "ios" ? "iPhone・iPad 向けです。Android の方は下のリンクから。"
+                     : "Android 向けです。iPhone・iPad の方は下のリンクから。";
+})();
+</script>
+
+</body>
+</html>
