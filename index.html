@@ -198,17 +198,32 @@
                       navigator.maxTouchPoints || 0);
   if (target === "other") return;
 
-  // 自動遷移はしない。以前は location.replace で飛ばしていたが、
-  //  ・判定できた人（≈対象の大半）はこのページを一度も見ない
-  //  ・遷移が塞がれても例外は飛ばず、try/catch は発火しない
-  //  ・違う端末向けのリンクを人に渡したくても、自分が見られない
-  // 代わりに、押す場所を1つだけ主役にして先頭へ繰り上げる。
+  // 【順序に意味がある】画面を先に整えてから飛ばす。
+  //
+  // 付け替えを location.replace より後ろに置くと、遷移が塞がれる環境
+  // （SNSのアプリ内ブラウザなど）で「間違ったストアが主役の画面」が
+  // 残る。判定が正しくても、付け替えが実行されなければ意味がない。
   var el = document.getElementById(target);
   el.classList.add("primary");
   document.getElementById("stores").classList.add("resolved");
   document.getElementById("note").textContent =
     target === "ios" ? "iPhone・iPad 向けです。Android の方は下のリンクから。"
                      : "Android 向けです。iPhone・iPad の方は下のリンクから。";
+
+  // ?stay を付けたときは飛ばさない。自動遷移があると、配布する本人が
+  // スマホからページの見え方を確認できない（開いた瞬間に出て行くため）。
+  if (/[?&]stay\b/.test(location.search)) return;
+
+  // ストアへ送る。ページは隠さない。
+  //
+  // 遷移中に本文を「ストアを開いています…」へ差し替える作りにはしない。
+  // 塞がれたときに、事実と違う文言と空白の画面が数秒残るためで、
+  // 隠さなければ塞がれてもそのまま正しいボタンが見えている状態になる。
+  // 復帰用のタイマーも要らなくなる。
+  //
+  // href は要素から取る。ボタンとリンク先が二重管理にならない。
+  // replace にすると、ストアから戻ったときにここへ跳ね返らない。
+  location.replace(el.href);
 })();
 </script>
 
